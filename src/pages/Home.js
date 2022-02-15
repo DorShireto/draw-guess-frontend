@@ -44,14 +44,14 @@ const Home = () => {
                             Welcome to Draw and Guess
                         </h1>
                         <h2 className="fw2 f4 lh-copy mt0 mb3">
-                            Hey ${user.userName} it's great to see you.
+                            Hey {user.userName} it's great to see you!
                         </h2>
-                        <div>
-                            <p className="f6 br-pill bg-dark-green no-underline washed-green ba b--dark-green grow pv2 ph3 dib mr3"
+                        <div className='tc'>
+                            <p className="tc f6 br-pill bg-dark-green no-underline washed-green ba b--dark-green grow pv2 ph3 dib mr3"
                                 onClick={() => navigate("/pregame")}>
                                 Create Game
                             </p>
-                            <p className="f6 br-pill dark-green no-underline ba grow pv2 ph3 dib"
+                            <p className="tc f6 br-pill dark-green no-underline ba grow pv2 ph3 dib"
                                 onClick={alert("Still in work")}>
                                 Join Game
                             </p>
