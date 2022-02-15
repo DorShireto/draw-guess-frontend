@@ -2,13 +2,49 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../UsersContest';
+import { game_created_question_async } from '../api/api';
 
+// Global fields
+let gameRoomCreated = false;
+let gameStruct = {};
+// state management
+// const [gameRoomCreated, setGameRoomCreated] = useEffect('');
+// const [gameStruct, setGameStruct] = useEffect('');
 
 
 const Home = () => {
-    let something = true
+    // state management
     const { user, setUser } = useContext(UserContext);
-    // console.log(props.children)
+    /**
+     * useEffect as componentDidMount life-cycle by passing [] as parameter.
+     * going to check with server if game room was already create
+     * if room was created: 
+     *      present Join Game button
+     * else:
+     *      present Create  Game button
+     */
+
+    useEffect(() => {
+        //API call to server to get game created status
+        game_created_question_async()
+            .then(gameCreatedFromServer => {
+                console.log(gameCreatedFromServer)
+                if (gameCreatedFromServer.status === 204) {
+                    gameRoomCreated = false;
+                }
+                else {
+                    gameRoomCreated = true;
+                    gameStruct = gameCreatedFromServer.data;
+                }
+            })
+            .catch(err => {
+                console.log("Error at useEffect - Home\n", err);
+            })
+    }, [])
+
+    // const [gameRoomCreated, setGameRoomCreated] = useEffect(false);
+    // const [gameStruct, setGameStruct] = useEffect('');
+
     let navigate = useNavigate();
     return (
         <div>
@@ -47,14 +83,16 @@ const Home = () => {
                             Hey {user.userName} it's great to see you!
                         </h2>
                         <div className='tc'>
-                            <p className="tc f6 br-pill bg-dark-green no-underline washed-green ba b--dark-green grow pv2 ph3 dib mr3"
-                                onClick={() => navigate("/pregame")}>
-                                Create Game
-                            </p>
-                            <p className="tc f6 br-pill dark-green no-underline ba grow pv2 ph3 dib"
-                                onClick={alert("Still in work")}>
-                                Join Game
-                            </p>
+                            {!gameRoomCreated ? // checking if game room was created, 
+                                <p className="tc f6 br-pill bg-dark-green no-underline washed-green ba b--dark-green grow pv2 ph3 dib mr3"
+                                    onClick={() => navigate("/pregame")}>
+                                    Create Game
+                                </p>
+                                :
+                                <p className="tc f6 br-pill dark-green no-underline ba grow pv2 ph3 dib"
+                                    onClick={alert("Still in work")}>
+                                    Join Game
+                                </p>}
                         </div>
                     </article>
                 </article>

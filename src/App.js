@@ -8,6 +8,7 @@ import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 import Error from './pages/Error';
 import Pregame from './pages/Pregame';
+import GamePage from './pages/GamePage';
 import { UserContext } from './UsersContest';
 
 // import contexts 
@@ -24,6 +25,7 @@ function App() {
                     <Route path="/signin" element={<Signin />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/pregame" element={<Pregame />} />
+                    <Route path="/gamePage" element={<GamePage />} />
                     {/* {This will route any unexists paths to error page} */}
                     <Route path="*" element={<Error />} />
                 </Routes>
