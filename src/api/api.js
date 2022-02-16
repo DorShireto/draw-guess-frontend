@@ -58,6 +58,9 @@ export const game_created_question_async = async () => {
  * @returns response/err from server -> would be checked at calling method
  */
 export const create_game_room_async = async (body) => {
+    if (body.level === "Easy") body.level = 1;
+    else if (body.level === "Medium") body.level = 2;
+    else body.level = 3;
     try {
         const response = await axios.post(server_post_address + '/create-room', body);
         return response;

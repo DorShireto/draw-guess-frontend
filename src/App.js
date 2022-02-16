@@ -30,7 +30,6 @@ function App() {
                     <Route path="*" element={<Error />} />
                 </Routes>
             </UserContext.Provider>
-
         </Router>
     );
 
