@@ -1,7 +1,13 @@
 import React, { useRef } from "react";
-import { userGuessing } from "../utils/gameUtils";
+import { userGuessing, sendCanvasToGuesser } from "../utils/gameUtils";
 // import UsersData from './UsersData';
 
+
+
+/**
+ * Basic Footer with sending the user guessed word
+ * @returns Footer for guessing user
+ */
 export const GuessTurnFooterView = () => {
     const userGuessRef = useRef('');
     return (
@@ -29,12 +35,26 @@ export const GuessTurnFooterView = () => {
     )
 }
 
+/**
+ * Basic Footer with sending the canvas
+ * @returns Footer for drawer user
+ */
 export const DrawTurnFooterView = () => (
     <div className='flex items-center'>
         <p className="fw1 f5 mt0 mb3">Hey! it is your turn to draw!</p>
+        <p className="f6 br-pill bg-dark-green no-underline washed-green ba b--dark-green grow pv2 ph3 dib mr3"
+            onClick={() => sendCanvasToGuesser()}>
+            Send Canvas
+        </p>
     </div>
 )
 
+
+/**
+ * Game page header 
+ * @param { user1, user2, currentWord, wordLevel, whosTurn, showWord } props 
+ * @returns Header - rendered div 
+ */
 export const GameRoomHeader = ({ props }) => {
     // const { user, setUser } = useContext(UserContext); // hooks to update user state
     let user = "User 2" //for mocking use

@@ -5,6 +5,7 @@ const Canvas = ({ props }) => {
     const [canvasLeftOffSet, setCanvasLeftOffSet] = useState('');
     // var canvasTopOffSet = 0;
     // var canvasLeftOffSet = 0;
+    const parentCanvasRef = useRef(null);
     const canvasRef = useRef(null);
     const contextRef = useRef(null);
     const canDraw = useRef(null)
@@ -26,7 +27,7 @@ const Canvas = ({ props }) => {
         context.fillStyle = "white";
         context.fillRect(0, 0, context.canvas.width, context.canvas.height)
         contextRef.current = context;
-    }, [])
+    }, [document.getElementById('canvas')])
 
     // Web drawing handles
     const startDrawing = ({ nativeEvent }) => {
@@ -40,6 +41,7 @@ const Canvas = ({ props }) => {
 
     const finishDrawing = () => {
         contextRef.current.closePath()
+        parentCanvasRef.current = contextRef.current;
         setIsDrawing(false)
     }
 
@@ -98,7 +100,7 @@ const Canvas = ({ props }) => {
 
     if (canDraw.current) {
         return (
-            <canvas className='vh-100 outline'
+            <canvas id="canvas" className='vh-100 outline'
                 onMouseDown={startDrawing}
                 onTouchStart={startDrawingMobile} // for touchscreen
                 onMouseUp={finishDrawing}
@@ -106,13 +108,15 @@ const Canvas = ({ props }) => {
                 onMouseMove={draw}
                 onTouchMove={drawMobile} // for touchscreen
                 ref={canvasRef}
+                ref2={parentCanvasRef}
             />
         )
     }
     else {
         return (
-            <canvas className='vh-100 outline'
+            <canvas id="canvas" className='vh-100 outline'
                 ref={canvasRef}
+                ref2={parentCanvasRef}
             />
         )
     }

@@ -1,8 +1,9 @@
-import React, { createContext, useRef, useEffect } from 'react'
+import React, { useRef, useEffect, createRef } from 'react'
 import { UserContext } from '../UsersContest'
 // components
 import { GuessTurnFooterView, DrawTurnFooterView, GameRoomHeader } from '../components/GameComponents'
 import Canvas from '../components/Canvas'
+import { checkForCanvas } from '../utils/gameUtils'
 
 
 function GamePage() {
@@ -12,12 +13,15 @@ function GamePage() {
     const width = (window.innerWidth * 100) / 100
     const height = (window.innerHeight * 75) / 100
     const userIsTheDrawer = useRef(false);
-    const GameContext = createContext();
+    // const GameContext = createContext();
+    // const [canvasContext, setCanvasContext] = useContext(GameContext);
+    // const value = useMemo(() => ({ canvasContext, setCanvasContext }), [canvasContext, setCanvasContext]);
+    // <GameContext.Provider/>
+    const canvasRef = createRef(null);
+
     // const { user, setUser } = useContext(UserContext);
-
-
     // Mocking data
-    const user = "User 1";
+    const user = "User 2";
     let fakeProps = {
         user1: "User 1",
         user2: "User 2",
@@ -33,7 +37,12 @@ function GamePage() {
     }
     // Mocking data
 
+    // const stupidMethod = () => {
+    //     console.log("in stupid method");
+    //     let can = document.getElementById('canvas');
 
+    //     console.log("G");
+    // }
 
     const canvasProps = { width: width, height: height, allowDrawing: userIsTheDrawer.current }
 
@@ -42,7 +51,12 @@ function GamePage() {
         console.log("Rendering Game Page")
     }, []) // similar to onComponentMount()
 
-
+    setInterval(async () => {
+        if (userIsTheDrawer.current === false) {
+            console.log("Checking for canvas")
+            await checkForCanvas()
+        }
+    }, 20000)
 
 
     return (
@@ -52,7 +66,7 @@ function GamePage() {
                 <GameRoomHeader props={fakeProps} />
             </div>
             <div className="outline w-100 vh-75">
-                <Canvas props={canvasProps} />
+                <Canvas ref2={canvasRef} props={canvasProps} />
             </div>
             <div className="outline w-100" style={{ height: 10 + 'em' }} >
                 {/* using style because can't set height to anything but 25/50/75/100 using tachyons vh */}

@@ -116,3 +116,44 @@ export const guess_word_async = async (word) => {
         return err;
     }
 }
+
+/**
+ * Async calling to server send canvas object
+ * @param {Object} canvasObject 
+ * @returns response/err from server -> would be checked at calling method
+ *          200 - canvas found and updated
+ *          404 - no canvas was found
+ */
+export const send_canvas_object_to_server_async = async (canvasObject) => {
+    try {
+        const body = {
+            type: "canvas object",
+            canvas: canvasObject
+        }
+        const response = await axios.post(server_backend_address + '/post-canvas', body);
+        return response;
+    }
+    catch (err) {
+        console.log("Error at send_canvas_object_to_server - api", err)
+        return err;
+    }
+}
+
+/**
+ * Async calling to server to get canvas object
+ * @param {Object} canvasObject 
+ * @returns response/err from server -> would be checked at calling method
+ *          200 - got canvas
+ *          404 - no canvas was found
+ */
+export const get_canvas_object_from_server_async = async () => {
+    try {
+        console.log("in get_canvas_object_from_server_async... ")
+        const response = await axios.get(server_backend_address + '/get-canvas');
+        console.log("Got response from server at ....")
+        return response
+    } catch (error) {
+        console.log("Error at get_canvas_object_from_server_async - api", error)
+        return error;
+    }
+}
