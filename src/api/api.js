@@ -1,6 +1,6 @@
 import axios from 'axios';
 // backend api server address
-const server_post_address = process.env.REACT_APP_SERVER_DOMAIN + process.env.REACT_APP_SERVER_PORT;
+const server_backend_address = process.env.REACT_APP_SERVER_DOMAIN + process.env.REACT_APP_SERVER_PORT;
 // dictionary-api address
 const definitionAPI_ADDR = "https://api.dictionaryapi.dev/api/v2/entries/en"
 
@@ -12,7 +12,7 @@ const definitionAPI_ADDR = "https://api.dictionaryapi.dev/api/v2/entries/en"
  */
 export const get_user_from_DB_async = async (body) => {
     try {
-        const response = await axios.post(server_post_address + '/signin', body);
+        const response = await axios.post(server_backend_address + '/signin', body);
         return response;
     }
     catch (err) {
@@ -27,7 +27,7 @@ export const get_user_from_DB_async = async (body) => {
  */
 export const add_user_to_DB_async = async (body) => {
     try {
-        const response = await axios.post(server_post_address + '/register', body);
+        const response = await axios.post(server_backend_address + '/register', body);
         return response;
     }
     catch (err) {
@@ -42,7 +42,7 @@ export const add_user_to_DB_async = async (body) => {
  */
 export const game_created_question_async = async () => {
     try {
-        const response = await axios.get(server_post_address + '/did-game-created');
+        const response = await axios.get(server_backend_address + '/did-game-created');
         console.log("game_created_question_async response:\n", response)
         return response;
     }
@@ -62,7 +62,7 @@ export const create_game_room_async = async (body) => {
     else if (body.level === "Medium") body.level = 2;
     else body.level = 3;
     try {
-        const response = await axios.post(server_post_address + '/create-room', body);
+        const response = await axios.post(server_backend_address + '/create-room', body);
         return response;
     }
     catch (err) {
@@ -92,6 +92,27 @@ export const get_word_definition_async = async (word) => {
     }
     catch (err) {
         console.log(err);
+        return err;
+    }
+}
+
+
+/**
+ * Async call to dictionary-api
+ * @param {string} word 
+ * @returns Status: 200, Data: Good guess, change turns -> on guessing right
+ *          Status: 409, Data: Wrong guess, try again -> on wrong guess
+ *          err - if call to backend server failed
+ */
+export const guess_word_async = async (word) => {
+    try {
+        console.log("inside guess_word_async");
+        const result = await axios.get(server_backend_address + "/guess-word/" + word);
+        console.log(result);
+        return result
+    }
+    catch (err) {
+        console.log("Error at guess_word_async - api", err)
         return err;
     }
 }
