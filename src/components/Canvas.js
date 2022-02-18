@@ -27,7 +27,7 @@ const Canvas = ({ props }) => {
         context.fillStyle = "white";
         context.fillRect(0, 0, context.canvas.width, context.canvas.height)
         contextRef.current = context;
-    }, [document.getElementById('canvas')])
+    }, [])
 
     // Web drawing handles
     const startDrawing = ({ nativeEvent }) => {
@@ -108,7 +108,6 @@ const Canvas = ({ props }) => {
                 onMouseMove={draw}
                 onTouchMove={drawMobile} // for touchscreen
                 ref={canvasRef}
-                ref2={parentCanvasRef}
             />
         )
     }
@@ -116,7 +115,6 @@ const Canvas = ({ props }) => {
         return (
             <canvas id="canvas" className='vh-100 outline'
                 ref={canvasRef}
-                ref2={parentCanvasRef}
             />
         )
     }

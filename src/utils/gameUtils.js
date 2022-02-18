@@ -1,10 +1,24 @@
 import {
     guess_word_async,
     send_canvas_object_to_server_async,
-    get_canvas_object_from_server_async
+    get_canvas_object_from_server_async,
+    get_room_status_async
 } from "../api/api";
 let currentCanvas = null; // holding the up-to-date canvas that was received from server 
 
+
+
+export const getRoomStatus = async () => {
+    try {
+        console.log("getRoomStatus called")
+        const gameStruct = await get_room_status_async();
+        console.log("Got game struct, ", gameStruct)
+        return gameStruct.data
+    } catch (error) {
+        console.log("Error at getRoomStatus - GamePage", error);
+
+    }
+}
 
 /**
  * Sending the user's guessed word to server

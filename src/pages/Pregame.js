@@ -44,6 +44,7 @@ function Pregame() {
         try {
             const { chosenWord, definition } = await getWordByLevel(level) // get word (and definition if exists)
             setWord({ chosenWord: chosenWord, level: level });
+            console.log("word: ", word)
             if (definition !== '' && definition !== undefined) {
                 setWordDefinition(definition)
             }

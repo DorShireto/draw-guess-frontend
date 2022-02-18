@@ -22,7 +22,6 @@ function Signin() {
                 navigate('/signin');
                 alert(userFromDB.data);
             }
-            //TODO - setup session.
             console.log(userFromDB);
             const userName = userFromDB.data.userName;
             const userContext = { userName: userName, email: email };

@@ -157,3 +157,16 @@ export const get_canvas_object_from_server_async = async () => {
         return error;
     }
 }
+
+
+export const get_room_status_async = async () => {
+    try {
+        console.log("get_room_status_async called")
+        const response = await axios.get(server_backend_address + '/room-status')
+        console.log("Got room status")
+        return response
+    } catch (error) {
+        console.log("Error at get_canvas_object_from_server_async - api", error)
+        return error;
+    }
+}

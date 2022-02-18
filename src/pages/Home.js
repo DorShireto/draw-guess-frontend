@@ -90,7 +90,7 @@ const Home = () => {
                                 </p>
                                 :
                                 <p className="tc f6 br-pill dark-green no-underline ba grow pv2 ph3 dib"
-                                    onClick={alert("Still in work")}>
+                                    onClick={() => navigate('/gamePage')}>
                                     Join Game
                                 </p>}
                         </div>

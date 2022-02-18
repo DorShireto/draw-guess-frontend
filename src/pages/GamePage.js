@@ -1,78 +1,92 @@
-import React, { useRef, useEffect, createRef } from 'react'
+import React, { useRef, useEffect, useState, useContext } from 'react'
 import { UserContext } from '../UsersContest'
 // components
 import { GuessTurnFooterView, DrawTurnFooterView, GameRoomHeader } from '../components/GameComponents'
 import Canvas from '../components/Canvas'
-import { checkForCanvas } from '../utils/gameUtils'
+import { checkForCanvas, getRoomStatus } from '../utils/gameUtils'
 
 
-function GamePage() {
+const GamePage = () => {
     console.log("First line in Game page")
-    // contexts and const
-    // const userGuessRef = useRef('');
+    // Canvas props
     const width = (window.innerWidth * 100) / 100
     const height = (window.innerHeight * 75) / 100
-    const userIsTheDrawer = useRef(false);
-    // const GameContext = createContext();
-    // const [canvasContext, setCanvasContext] = useContext(GameContext);
-    // const value = useMemo(() => ({ canvasContext, setCanvasContext }), [canvasContext, setCanvasContext]);
-    // <GameContext.Provider/>
-    const canvasRef = createRef(null);
-
-    // const { user, setUser } = useContext(UserContext);
-    // Mocking data
-    const user = "User 2";
-    let fakeProps = {
-        user1: "User 1",
-        user2: "User 2",
-        currentWord: "Fake word",
-        wordLevel: "1",
-        whosTurn: 1,
-        showWord: false
-    }
-    if ((user === fakeProps.user1 && fakeProps.whosTurn === 1) ||
-        (user === fakeProps.user2 && fakeProps.whosTurn === 2)) {
-        userIsTheDrawer.current = true;
-        fakeProps.showWord = true;
-    }
-    // Mocking data
-
-    // const stupidMethod = () => {
-    //     console.log("in stupid method");
-    //     let can = document.getElementById('canvas');
-
-    //     console.log("G");
-    // }
-
+    // users details
+    const [user1State, setUser1State] = useState('')
+    const [user2State, setUser2State] = useState('')
+    const [currentWordState, setCurrentWord] = useState('')
+    const [wordLevelState, setWordLevelState] = useState('')
+    const [whosTurnState, setWhosTurn] = useState('')
+    const [gameScoreState, setGameScore] = useState(0)
+    const [canvasFromServerState, setCanvasFromServer] = useState('')
+    // game mode
+    const [showChildComponent, setShowChildComponent] = useState(false)
+    const [userIsTheDrawerState, setUserIsTheDrawerState] = useState(false)
+    const userIsTheDrawer = useRef(false)
+    const showWord = useRef(false)
+    const headerProps = useRef('')
+    const { user, setUser } = useContext(UserContext);  // session user
     const canvasProps = { width: width, height: height, allowDrawing: userIsTheDrawer.current }
 
     useEffect(() => {
+        getRoomStatus().then(gameProps => {
+            console.log("Got game props: ", gameProps)
+            setUser1State(gameProps.user1)
+            setUser2State(gameProps.user2)
+            setCurrentWord(gameProps.currentWord)
+            setWordLevelState(gameProps.wordLevel)
+            setWhosTurn(gameProps.whosTurn)
+            setGameScore(gameProps.gameScore)
+            setCanvasFromServer(gameProps.canvas)
+            // set turn
+            if ((user.userName === user1State && whosTurnState === 1) ||
+                (user.userName === user2State && whosTurnState === 2)) {
+                userIsTheDrawer.current = true;
+                setUserIsTheDrawerState(true)
+                showWord.current = true
+            }
+            headerProps.current = {
+                user1: user1State,
+                user2: user2State,
+                currentWord: currentWordState,
+                wordLevel: whosTurnState,
+                showWord: showWord.current
+            }
+            console.log("Done loading, can present...")
+            setShowChildComponent(true)
+        }).catch(err => {
+            console.log("Error ", err)
+        })
+        console.log("asdasd")
         // set role:
         console.log("Rendering Game Page")
     }, []) // similar to onComponentMount()
 
-    setInterval(async () => {
-        if (userIsTheDrawer.current === false) {
-            console.log("Checking for canvas")
-            await checkForCanvas()
-        }
-    }, 20000)
+    // setInterval(async () => {
+    //     if (userIsTheDrawerState === false) {
+    //         console.log("Checking for canvas")
+    //         await checkForCanvas()
+    //     }
+    // }, 20000)
 
 
     return (
         <div className="vh-100 flex flex-column items-center bg-washed-green">
             <div className="outline w-100 " style={{ height: 10 + 'em' }}>
                 {/* using style because can't set height to anything but 25/50/75/100 using tachyons vh */}
-                <GameRoomHeader props={fakeProps} />
+                {showChildComponent && <GameRoomHeader props={headerProps.current} />}
+                {/* <GameRoomHeader props={headerProps.current} /> */}
             </div>
             <div className="outline w-100 vh-75">
-                <Canvas ref2={canvasRef} props={canvasProps} />
+                {showChildComponent && <Canvas props={canvasProps} />}
             </div>
             <div className="outline w-100" style={{ height: 10 + 'em' }} >
                 {/* using style because can't set height to anything but 25/50/75/100 using tachyons vh */}
-                {userIsTheDrawer.current // custom footer by role.
+                {showChildComponent && userIsTheDrawer.current ? <DrawTurnFooterView /> : <GuessTurnFooterView />
+                }
+                {/* {userIsTheDrawer.current // custom footer by role.
                     ? <DrawTurnFooterView />
-                    : <GuessTurnFooterView />}
+                    : <GuessTurnFooterView />} */}
             </div>
         </div>
     )
