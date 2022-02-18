@@ -22,11 +22,14 @@ const GamePage = () => {
     // game mode
     const [showChildComponent, setShowChildComponent] = useState(false)
     const [userIsTheDrawerState, setUserIsTheDrawerState] = useState(false)
-    const userIsTheDrawer = useRef(false)
-    const showWord = useRef(false)
-    const headerProps = useRef('')
+    const [showWordState, setShowWordState] = useState(false)
+    const [headerProps, setHeaderProps] = useState('');
+
+    // const userIsTheDrawer = useRef(false)
+    // const showWord = useRef(false)
+    // const headerProps = useRef('')
     const { user, setUser } = useContext(UserContext);  // session user
-    const canvasProps = { width: width, height: height, allowDrawing: userIsTheDrawer.current }
+    var canvasProps = {}
 
     useEffect(() => {
         getRoomStatus().then(gameProps => {
@@ -41,18 +44,30 @@ const GamePage = () => {
             // set turn
             if ((user.userName === user1State && whosTurnState === 1) ||
                 (user.userName === user2State && whosTurnState === 2)) {
-                userIsTheDrawer.current = true;
+                // userIsTheDrawer.current = true;
                 setUserIsTheDrawerState(true)
-                showWord.current = true
+                setShowWordState(true)
+                // showWord.current = true
             }
-            headerProps.current = {
+            canvasProps = { width: width, height: height, allowDrawing: userIsTheDrawerState }
+            setHeaderProps({
                 user1: user1State,
                 user2: user2State,
                 currentWord: currentWordState,
                 wordLevel: whosTurnState,
-                showWord: showWord.current
-            }
+                showWord: showWordState
+            })
+            // headerProps.current = {
+            //     user1: user1State,
+            //     user2: user2State,
+            //     currentWord: currentWordState,
+            //     wordLevel: whosTurnState,
+            //     showWord: showWordState
+            // }
             console.log("Done loading, can present...")
+            console.log("User1State: ", user1State)
+            console.log("User2State: ", user2State)
+            console.log("hearerProps: ", headerProps)
             setShowChildComponent(true)
         }).catch(err => {
             console.log("Error ", err)
@@ -62,19 +77,19 @@ const GamePage = () => {
         console.log("Rendering Game Page")
     }, []) // similar to onComponentMount()
 
-    // setInterval(async () => {
-    //     if (userIsTheDrawerState === false) {
-    //         console.log("Checking for canvas")
-    //         await checkForCanvas()
-    //     }
-    // }, 20000)
+    setInterval(async () => {
+        if (userIsTheDrawerState === false) {
+            console.log("Checking for canvas")
+            await checkForCanvas()
+        }
+    }, 20000)
 
 
     return (
         <div className="vh-100 flex flex-column items-center bg-washed-green">
             <div className="outline w-100 " style={{ height: 10 + 'em' }}>
                 {/* using style because can't set height to anything but 25/50/75/100 using tachyons vh */}
-                {showChildComponent && <GameRoomHeader props={headerProps.current} />}
+                {showChildComponent && <GameRoomHeader props={headerProps} />}
                 {/* <GameRoomHeader props={headerProps.current} /> */}
             </div>
             <div className="outline w-100 vh-75">
@@ -82,7 +97,7 @@ const GamePage = () => {
             </div>
             <div className="outline w-100" style={{ height: 10 + 'em' }} >
                 {/* using style because can't set height to anything but 25/50/75/100 using tachyons vh */}
-                {showChildComponent && userIsTheDrawer.current ? <DrawTurnFooterView /> : <GuessTurnFooterView />
+                {showChildComponent && userIsTheDrawerState ? <DrawTurnFooterView /> : <GuessTurnFooterView />
                 }
                 {/* {userIsTheDrawer.current // custom footer by role.
                     ? <DrawTurnFooterView />
