@@ -158,15 +158,55 @@ export const get_canvas_object_from_server_async = async () => {
     }
 }
 
-
-export const get_room_status_async = async () => {
+/** Async calling to server to get room struct 
+ * @returns response/err from server -> would be checked at calling method
+ *          200 - room struct
+ *          404 - no room was found.
+ */
+export const get_room_struct_async = async () => {
     try {
         console.log("get_room_status_async called")
-        const response = await axios.get(server_backend_address + '/room-status')
+        const response = await axios.get(server_backend_address + '/room-struct')
         console.log("Got room status")
         return response
     } catch (error) {
         console.log("Error at get_canvas_object_from_server_async - api", error)
+        return error;
+    }
+}
+
+/** Async calling to server announce for round win
+ * @returns response/err from server -> would be checked at calling method
+ *          200 - room struct
+ *          404 - no room was found.
+ *          error 
+ */
+export const post_server_round_win_async = async () => {
+    try {
+        console.log("post_server_round_win_async called")
+        const response = await axios.get(server_backend_address + '/win-round')
+        console.log("Server was updated for round win.")
+        return response
+    } catch (error) {
+        console.log("Error at post_server_round_win_async - api", error)
+        return error;
+    }
+}
+
+/** Async calling to to check if round ended
+ * @returns response/err from server -> would be checked at calling method
+ *          200 - Round ended + game struct
+ *          304 - Round not ended
+ *          error 
+ */
+export const check_if_round_ended_async = async () => {
+    try {
+        console.log("check_if_round_ended_async called")
+        const response = await axios.get(server_backend_address + '/check-round-change')
+        console.log("Server was updated for round win.")
+        return response
+    } catch (error) {
+        console.log("Error at post_server_round_win_async - api", error)
         return error;
     }
 }

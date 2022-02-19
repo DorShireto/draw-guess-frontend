@@ -64,7 +64,10 @@ function Pregame() {
         try {
             const response = await create_game_room_async(body);
             console.log(response);
-            navigate('/gamePage');
+            /////////////////////FOR TEST
+            // navigate('/test', { state: response.data });
+
+            navigate('/gamePage', { state: response.data });
         }
         catch (err) {
             console.log("Error at moveToGameRoom - Pregame", err);

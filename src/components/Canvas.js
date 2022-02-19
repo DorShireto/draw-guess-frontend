@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-const Canvas = ({ props }) => {
+const Canvas = ({ props, canvasFromUser }) => {
     const [canvasTopOffSet, setCanvasTopOffSet] = useState('');
     const [canvasLeftOffSet, setCanvasLeftOffSet] = useState('');
     // var canvasTopOffSet = 0;

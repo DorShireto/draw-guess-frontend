@@ -8,7 +8,7 @@ import { userGuessing, sendCanvasToGuesser } from "../utils/gameUtils";
  * Basic Footer with sending the user guessed word
  * @returns Footer for guessing user
  */
-export const GuessTurnFooterView = () => {
+export const GuessTurnFooterView = ({ correctGuess }) => {
     const userGuessRef = useRef('');
     return (
         // <div className="flex flex-column item-center">
@@ -27,7 +27,7 @@ export const GuessTurnFooterView = () => {
             </dl>
             <dl className="f6 ma0 ml0 lh-title">
                 <p className="f6 br-pill bg-dark-green no-underline washed-green ba b--dark-green grow pv2 ph3 dib mr3"
-                    onClick={() => userGuessing(userGuessRef.current.value)}>
+                    onClick={() => userGuessing(userGuessRef.current.value, correctGuess)}>
                     Send Guess
                 </p>
             </dl>
@@ -55,7 +55,7 @@ export const DrawTurnFooterView = () => (
  * @param { user1, user2, currentWord, wordLevel, whosTurn, showWord } props 
  * @returns Header - rendered div 
  */
-export const GameRoomHeader = ({ props }) => {
+export const GameRoomHeader = ({ props, score }) => {
     // const { user, setUser } = useContext(UserContext); // hooks to update user state
     let user = "User 2" //for mocking use
     const WordHiddenDiv = ({ word }) => (
@@ -67,8 +67,8 @@ export const GameRoomHeader = ({ props }) => {
         </div>
     )
 
-    console.log(props);
-    const { user1, user2, currentWord, wordLevel, whosTurn, showWord } = props;
+    console.log("GameRoomHeader props: ", props);
+    const { user1, user2, currentWord, wordLevel, showWord } = props;
     // const user1 = props.user1;
     console.log("user 1:", user1)
     // const user2 = props.user2;
@@ -88,7 +88,7 @@ export const GameRoomHeader = ({ props }) => {
             </div>
             <div className="w-45 flex flex-column">
                 <p className="f6 b underline center ma2 fw6">Total Score</p>
-                <p className="dib ma0 b center">5</p>
+                <p className="dib ma0 b center">{score}</p>
                 <p className="f6 b underline center ma2 fw6">Current word worth</p>
                 <p className="dib ma0 b center">{wordLevel}</p>
             </div>

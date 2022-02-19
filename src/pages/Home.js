@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../UsersContest';
 import { game_created_question_async } from '../api/api';
+import { getRoomStatus } from '../utils/gameUtils'
 
 // Global fields
 let gameRoomCreated = false;
@@ -10,6 +11,21 @@ let gameStruct = {};
 // state management
 // const [gameRoomCreated, setGameRoomCreated] = useEffect('');
 // const [gameStruct, setGameStruct] = useEffect('');
+
+async function moveToGameRoom(navigate) {
+    try {
+        const response = await getRoomStatus();
+        // const response = await get_room_status_async();
+        console.log(response);
+        // navigate('/gamePage', { state: response.data });
+        navigate('/gamePage', { state: response });
+
+    }
+    catch (err) {
+        console.log("Error at moveToGameRoom - Home", err);
+        alert("Could not create a room due to an error");
+    }
+}
 
 
 const Home = () => {
@@ -90,7 +106,7 @@ const Home = () => {
                                 </p>
                                 :
                                 <p className="tc f6 br-pill dark-green no-underline ba grow pv2 ph3 dib"
-                                    onClick={() => navigate('/gamePage')}>
+                                    onClick={() => moveToGameRoom(navigate)}>
                                     Join Game
                                 </p>}
                         </div>
