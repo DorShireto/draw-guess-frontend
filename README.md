@@ -14,6 +14,8 @@ REACT_APP_SERVER_PORT=3001
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
+### `Dont forget tp run the server first!`
+
 ### `How to play?`
 
 First player need so login or signup and create a game room. \
@@ -22,7 +24,7 @@ After that the player will see the word, and it's definition. \
 Now the player can start the game. \
 Donn't forget to send your canvas when you done drawing. \
 Only then, open a second browser tab and go to [http://localhost:3000](http://localhost:3000) and sign in\up. \
-Next the user will be back at the home page where he could join a room. \
+Next the user will be back at the home page where he could join a room. 
 
 ### `Check your highest score`
 
