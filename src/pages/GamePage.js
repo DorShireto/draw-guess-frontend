@@ -17,7 +17,7 @@ import { checkForCanvas, getRoomStatus, updateServerForRoundWinAsync, checkIfRou
 
 const GamePage = () => {
     //METHODS
-    const switchTurns = async () => {
+    const switchTurns = async () => { //SOMETHING HERE SEEMS TO NOT WORK
         const updateServerAboutWin = await updateServerForRoundWinAsync() // update scores in server
         const newGameStruct = await getRoomStatus()
         let score = newGameStruct.gameScore
@@ -30,7 +30,7 @@ const GamePage = () => {
         // navigate('/gamePage', { state: newGameStruct });
     }
 
-    const switchFromDrawToGuess = async () => {
+    const switchFromDrawToGuess = async () => { //NOT WORKING IDK WHY
         const response = await checkIfRoundOverAsync()
         if (response === false) return
         /// ROUND IS OVER - CHANGE STATES:

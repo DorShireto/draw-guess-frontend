@@ -8,16 +8,15 @@ import { getRoomStatus } from '../utils/gameUtils'
 // Global fields
 let gameRoomCreated = false;
 let gameStruct = {};
-// state management
-// const [gameRoomCreated, setGameRoomCreated] = useEffect('');
-// const [gameStruct, setGameStruct] = useEffect('');
 
+/**
+ * Method gets room struct from server, passed it to game page and navigate to the page
+ * @param {useNavigate} navigate - Hook to navigate to next page
+ */
 async function moveToGameRoom(navigate) {
     try {
         const response = await getRoomStatus();
-        // const response = await get_room_status_async();
         console.log(response);
-        // navigate('/gamePage', { state: response.data });
         navigate('/gamePage', { state: response });
 
     }
@@ -68,8 +67,7 @@ const Home = () => {
             })
     }, [])
 
-    // const [gameRoomCreated, setGameRoomCreated] = useEffect(false);
-    // const [gameStruct, setGameStruct] = useEffect('');
+
 
     let navigate = useNavigate();
     return (

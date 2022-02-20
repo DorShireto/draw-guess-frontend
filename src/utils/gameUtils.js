@@ -10,18 +10,6 @@ let currentCanvas = null; // holding the up-to-date canvas that was received fro
 
 
 
-export const getRoomStatus = async () => {
-    try {
-        console.log("getRoomStatus called")
-        const gameStruct = await get_room_struct_async();
-        console.log("Got game struct, ", gameStruct)
-        return gameStruct.data
-    } catch (error) {
-        console.log("Error at getRoomStatus - GamePage", error);
-
-    }
-}
-
 /**
  * Sending the user's guessed word to server
  * using private method send_guess_async
@@ -126,6 +114,20 @@ export const checkIfRoundOverAsync = async () => {
     }
 }
 
+/** Get room struct from server
+ * @returns game struct
+ */
+export const getRoomStatus = async () => {
+    try {
+        console.log("getRoomStatus called")
+        const gameStruct = await get_room_struct_async();
+        console.log("Got game struct, ", gameStruct)
+        return gameStruct.data
+    } catch (error) {
+        console.log("Error at getRoomStatus - GamePage", error);
+
+    }
+}
 
 
 /**
@@ -186,6 +188,10 @@ const update_server_on_round_win_async = async () => {
     }
 }
 
+/** Private method - calling check_if_round_ended_async method from "./api"
+ * @returns true - need to change states
+ *          false - round not over
+ */
 const p_check_if_round_ended_async = async () => {
     try {
         const response = await check_if_round_ended_async()

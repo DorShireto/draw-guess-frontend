@@ -15,24 +15,6 @@ function Pregame() {
     const [wordDefinition, setWordDefinition] = useState('');
     const [showDiv, setShowDiv] = useState('');
     const navigate = useNavigate(); // programming routing
-    ////////////
-    // const HiddenDiv = ({ word, wordDefinition }) => (
-    //     <div className="flex flex-column items-center dt dt--fixed w-100">
-    //         <p className="f6 fw6 center ml2 mr2 underline font-family: monaco">The word you got is</p>
-    //         <p className="f4 fw6 center ml2 mr2 font-family: monaco">{word.chosenWord.toUpperCase()}</p>
-    //         {wordDefinition !== undefined ?
-    //             <div className=" flex flex-column items-center dt dt--fixed w-100">
-    //                 <p className="f6 fw6 center ml2 mr2 underline font-family: monaco">The word meaning is</p>
-    //                 <p className="f6 dt ml2 mr2 font-family: monaco">{wordDefinition}</p>
-    //             </div>
-    //             : null}
-    //         <div className=''>
-    //             <button className="tc fl mw-50 f6 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-green"
-    //                 onClick={() => { moveToGameRoom() }}>Start Game</button>
-    //         </div>
-    //     </div>
-    // )
-    // methods
 
     /**
      * @param { String } level - Easy / Medium / Hard
@@ -64,9 +46,6 @@ function Pregame() {
         try {
             const response = await create_game_room_async(body);
             console.log(response);
-            /////////////////////FOR TEST
-            // navigate('/test', { state: response.data });
-
             navigate('/gamePage', { state: response.data });
         }
         catch (err) {
@@ -104,7 +83,6 @@ function Pregame() {
                         {showDiv === true ?
                             <div className="flex flex-column items-center dt dt--fixed w-100 pa3">
                                 <HiddenWordDiv word={word} wordDefinition={wordDefinition} moveToGameRoom={moveToGameRoom} />
-                                {/* <HiddenDiv word={word} wordDefinition={wordDefinition}  /> */}
                             </div>
                             : null}
                     </div>

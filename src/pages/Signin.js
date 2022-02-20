@@ -31,7 +31,7 @@ function Signin() {
                 alert("Email or password not matching...");
                 // navigate('/signin');
             }
-            else {
+            else { // set user context
                 console.log(userFromDB);
                 const userName = userFromDB.data.userName;
                 const highestScore = userFromDB.data.highestScore;

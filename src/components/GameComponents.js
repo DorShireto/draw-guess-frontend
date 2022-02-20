@@ -29,12 +29,6 @@ export const GuessTurnFooterView = ({ correctGuess }) => {
                     </p>
                 </dd>
             </dl>
-            {/* <dl className="f6 ma0 ml0 lh-title">
-                <p className="f6 br-pill bg-dark-green no-underline washed-green ba b--dark-green grow pv2 ph3 dib mr3"
-                    onClick={() => userGuessing(userGuessRef.current.value, correctGuess)}>
-                    Send Guess
-                </p>
-            </dl> */}
         </div>
     )
 }
@@ -73,13 +67,8 @@ export const GameRoomHeader = ({ props, score }) => {
 
     console.log("GameRoomHeader props: ", props);
     const { user1, user2, currentWord, wordLevel, showWord } = props;
-    // const user1 = props.user1;
     console.log("user 1:", user1)
-    // const user2 = props.user2;
     console.log("user 2:", user2)
-    // const currentWord = props.currentWord;
-    // const wordLevel = props.wordLevel;
-    // const whosTurn = props.whosTurn;
 
     return (
         <div className="flex justify-around">

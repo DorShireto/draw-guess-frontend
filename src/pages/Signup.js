@@ -13,8 +13,11 @@ function Signup() {
     const [password, setPassword] = useState('');
     //Methods
 
+    /** Method call to add new user to server
+     * Will alert and navigate to next stage
+     * @param {useNavigate} navigate - hook to navigate to next page
+     */
     async function onSubmit(navigate) {
-
         const body = {
             userName: userName,
             email: email,
@@ -23,14 +26,20 @@ function Signup() {
         try {
             const response = await add_user_to_DB_async(body) // using api middleware to call server api
             console.log(response.status);
-            if (response.status !== 200) {
-                navigate('/signup');
+            if (response.status === 409) {
+                // navigate('/signup');
                 alert(response.data);
             }
-            const userContext = { userName: userName, email: email }
-            setUser(userContext); // update user who is currently logged in
-            navigate('/'); // return to home menu
-            //TODO
+            else if (response.status === 202) {
+                // navigate('/signup');
+                alert("User was created but game room is full..");
+                navigate('/tooLate')
+            }
+            else {
+                const userContext = { userName: userName, email: email }
+                setUser(userContext); // update user who is currently logged in
+                navigate('/'); // return to home menu
+            }
         }
         catch (err) {
             alert(err.response);
