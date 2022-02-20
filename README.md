@@ -4,11 +4,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### `Before starting don't forget to run npm install`
 
-### `Don't forget to create a .env file with:`
-REACT_APP_SERVER_DOMAIN=http://localhost \
-REACT_APP_SERVER_PORT=3001
-
-
 ### `To run the client -> npm start`
 
 Runs the app in the development mode.\
