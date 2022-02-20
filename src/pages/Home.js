@@ -28,9 +28,18 @@ async function moveToGameRoom(navigate) {
 }
 
 
+
+
 const Home = () => {
+    function showHighestScore() {
+        console.log(user)
+        const { userName, highestScore, updatedAt } = user;
+        const date = updatedAt.substring(0, 10)
+        alert(`${userName} highest score is: ${highestScore}\nScore was achieved at ${date}`)
+    }
     // state management
     const { user, setUser } = useContext(UserContext);
+    const [gameStructState, setGameStructState] = useState({})
     /**
      * useEffect as componentDidMount life-cycle by passing [] as parameter.
      * going to check with server if game room was already create
@@ -51,6 +60,7 @@ const Home = () => {
                 else {
                     gameRoomCreated = true;
                     gameStruct = gameCreatedFromServer.data;
+                    setGameStructState(gameStruct)
                 }
             })
             .catch(err => {
@@ -63,56 +73,64 @@ const Home = () => {
 
     let navigate = useNavigate();
     return (
-        <div>
-            {user === undefined ?
-                <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
-                    <article className="center ph3 ph5-ns tc br2 pv5 bg-washed-green dark-green">
-                        <h1 className="fw6 f3 f2-ns lh-title mt0 mb3">
-                            Welcome to Draw and Guess
-                        </h1>
-                        <h2 className="fw2 f4 lh-copy mt0 mb3">
-                            In this game, you and your friend will compete with each other to see who can draw the best, and who can guess.
-                        </h2>
-                        <p className="fw1 f5 mt0 mb3">
-                            Sign up or Log in now to access the game.
-                        </p>
-                        <div>
-                            <p className="f6 br-pill bg-dark-green no-underline washed-green ba b--dark-green grow pv2 ph3 dib mr3"
-                                onClick={() => navigate("/signup")}>
-                                Sign Up
+        <div className='bg-washed-green vh-100'>
+            <div className='pt6'>
+                {user === undefined ?
+                    <article className="br3 ba b--black-10 w-100 w-50-m w-25-l mw6 shadow-5 center">
+                        <article className="center ph3 ph5-ns tc br2 pv5 bg-washed-green dark-green">
+                            <h1 className="fw6 f3 f2-ns lh-title mt0 mb3">
+                                Welcome to Draw and Guess
+                            </h1>
+                            <h2 className="fw2 f4 lh-copy mt0 mb3">
+                                In this game, you and your friend will compete with each other to see who can draw the best, and who can guess.
+                            </h2>
+                            <p className="fw1 f5 mt0 mb3">
+                                Sign up or Log in now to access the game.
                             </p>
-                            <p className="f6 br-pill dark-green no-underline ba grow pv2 ph3 dib"
-                                onClick={() => navigate("/signin")}>
-                                Log in
-                            </p>
-                        </div>
-                    </article>
-                </article>
-                :
-                //////////////////////////////// USER LOGGED IN //////////////////////////
-                <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
-                    <article className="center ph3 ph5-ns tc br2 pv5 bg-washed-green dark-green">
-                        <h1 className="fw6 f3 f2-ns lh-title mt0 mb3">
-                            Welcome to Draw and Guess
-                        </h1>
-                        <h2 className="fw2 f4 lh-copy mt0 mb3">
-                            Hey {user.userName} it's great to see you!
-                        </h2>
-                        <div className='tc'>
-                            {!gameRoomCreated ? // checking if game room was created, 
-                                <p className="tc f6 br-pill bg-dark-green no-underline washed-green ba b--dark-green grow pv2 ph3 dib mr3"
-                                    onClick={() => navigate("/pregame")}>
-                                    Create Game
+                            <div>
+                                <p className="f6 br-pill bg-dark-green no-underline washed-green ba b--dark-green grow pv2 ph3 dib mr3"
+                                    onClick={() => navigate("/signup")}>
+                                    Sign Up
                                 </p>
-                                :
-                                <p className="tc f6 br-pill dark-green no-underline ba grow pv2 ph3 dib"
-                                    onClick={() => moveToGameRoom(navigate)}>
-                                    Join Game
-                                </p>}
-                        </div>
+                                <p className="f6 br-pill dark-green no-underline ba grow pv2 ph3 dib"
+                                    onClick={() => navigate("/signin")}>
+                                    Log in
+                                </p>
+                            </div>
+                        </article>
                     </article>
-                </article>
-            }
+                    :
+                    //////////////////////////////// USER LOGGED IN //////////////////////////
+                    <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
+                        <article className="center ph3 ph5-ns tc br2 pv5 bg-washed-green dark-green">
+                            <h1 className="fw6 f3 f2-ns lh-title mt0 mb3">
+                                Welcome to Draw and Guess
+                            </h1>
+                            <h2 className="fw2 f4 lh-copy mt0 mb3">
+                                Hey {user.userName} it's great to see you!
+                            </h2>
+                            <div className='tc'>
+                                {!gameRoomCreated ? // checking if game room was created, 
+                                    <p className="tc f6 br-pill bg-dark-green no-underline washed-green ba b--dark-green grow pv2 ph3 dib mr3"
+                                        onClick={() => navigate("/pregame")}>
+                                        Create Game
+                                    </p>
+                                    :
+                                    <p className="tc f6 br-pill dark-green no-underline ba grow pv2 ph3 dib"
+                                        onClick={() => moveToGameRoom(navigate)}>
+                                        Join Game
+                                    </p>}
+                            </div>
+                            <div className='tc'>
+                                <p className="tc f6 br-pill bg-dark-green no-underline washed-green ba b--dark-green grow pv2 ph3 dib mr3"
+                                    onClick={() => showHighestScore()}>
+                                    Show highest score
+                                </p>
+                            </div>
+                        </article>
+                    </article>
+                }
+            </div>
         </div>
 
 

@@ -12,25 +12,29 @@ export const GuessTurnFooterView = ({ correctGuess }) => {
     const userGuessRef = useRef('');
     return (
         // <div className="flex flex-column item-center">
-        <div className="">
-            <h4 className="f6 ma0 pb1 fw6 lh-title">Hey! it is your turn to guess! You got it</h4>
-            <dl className="f6 ma0 pa0 lh-title">
-                <dt className="dib pr1 b">Word is:</dt>
+        <div className="flex flex-column items-center">
+            <h4 className="f6 ma0 pb0 fw6 lh-title">Hey! it is your turn to guess! You got it</h4>
+            <dl className="f6 ml4 ma0 pa0 lh-title">
+                <dt className="dib pr0 b">Word is:</dt>
                 <dd className="dib ml0 gray">
                     <input
-                        className="pa2 input-reset ba bg-transparent hover-bg-dark-green hover-white w-100"
+                        className="pa2 ml1 input-reset ba bg-transparent hover-bg-dark-green hover-white w-50"
                         type="text"
                         id="email-address-signin"
                         ref={userGuessRef}
                     />
+                    <p className="f6 br-pill bg-dark-green no-underline washed-green ba b--dark-green grow pv2 ph3 dib ml1"
+                        onClick={() => userGuessing(userGuessRef.current.value, correctGuess)}>
+                        Send Guess
+                    </p>
                 </dd>
             </dl>
-            <dl className="f6 ma0 ml0 lh-title">
+            {/* <dl className="f6 ma0 ml0 lh-title">
                 <p className="f6 br-pill bg-dark-green no-underline washed-green ba b--dark-green grow pv2 ph3 dib mr3"
                     onClick={() => userGuessing(userGuessRef.current.value, correctGuess)}>
                     Send Guess
                 </p>
-            </dl>
+            </dl> */}
         </div>
     )
 }
@@ -40,9 +44,9 @@ export const GuessTurnFooterView = ({ correctGuess }) => {
  * @returns Footer for drawer user
  */
 export const DrawTurnFooterView = () => (
-    <div className='flex items-center'>
-        <p className="fw1 f5 mt0 mb3">Hey! it is your turn to draw!</p>
-        <p className="f6 br-pill bg-dark-green no-underline washed-green ba b--dark-green grow pv2 ph3 dib mr3"
+    <div className='flex flex-column items-center'>
+        <p className="fw1 f5 mt1 mb2">Hey! it is your turn to draw!</p>
+        <p className="f6 mv0 br-pill bg-dark-green no-underline washed-green ba b--dark-green grow pv2 ph3 dib"
             onClick={() => sendCanvasToGuesser()}>
             Send Canvas
         </p>

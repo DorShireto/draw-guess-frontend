@@ -26,7 +26,7 @@ const GamePage = () => {
         setGameScore(score)
         setWhosTurn(newGameStruct.whosTurn)
         setUserIsTheDrawerState(true)
-        setRoundEnded(prev => !prev)
+        // setRoundEnded(prev => !prev)
         // navigate('/gamePage', { state: newGameStruct });
     }
 
@@ -39,7 +39,7 @@ const GamePage = () => {
         setWhosTurn(response.whosTurn)
         setUserIsTheDrawerState(false)
         userIsTheDrawer.current = false
-        setRoundEnded(prev => !prev)
+        // setRoundEnded(prev => !prev)
 
     }
 

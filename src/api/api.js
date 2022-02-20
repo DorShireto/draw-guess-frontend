@@ -16,8 +16,9 @@ export const get_user_from_DB_async = async (body) => {
         return response;
     }
     catch (err) {
+        console.log(err.response.status)
         console.log("Error at get_user_from_DB_async - api", err)
-        return err
+        return err.response
     }
 }
 /**
@@ -32,7 +33,7 @@ export const add_user_to_DB_async = async (body) => {
     }
     catch (err) {
         console.log("Error at add_user_to_DB_async - api", err)
-        return err;
+        return err.response;
     }
 }
 
@@ -48,7 +49,7 @@ export const game_created_question_async = async () => {
     }
     catch (err) {
         console.log("Error at game_created_question_async - api", err)
-        return err;
+        return err.response;
     }
 }
 
@@ -67,7 +68,7 @@ export const create_game_room_async = async (body) => {
     }
     catch (err) {
         console.log("Error at create_game_room_async - api", err)
-        return err;
+        return err.response;
     }
 }
 

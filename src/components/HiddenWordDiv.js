@@ -8,7 +8,7 @@ const HiddenWordDiv = ({ word, wordDefinition, moveToGameRoom }) => {
             {wordDefinition !== undefined ?
                 <div className=" flex flex-column items-center dt dt--fixed w-100">
                     <p className="f6 fw6 center ml2 mr2 underline font-family: monaco">The word meaning is</p>
-                    <p className="f6 dt ml2 mr2 font-family: monaco">{wordDefinition}</p>
+                    <p className="f6 tc dt ml2 mr2 font-family: monaco">{wordDefinition}</p>
                 </div>
                 : null}
             <div className=''>

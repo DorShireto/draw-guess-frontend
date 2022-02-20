@@ -75,39 +75,43 @@ function Pregame() {
         }
     }
     return (
-        <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
-            <main className="pa4 black-80 bg-washed-green dark-green">
-                <div className="measure">
-                    <legend className="f2 fw6 ph0 mh0 center">Choose Level</legend>
-                    <div className="flex flex-column items-center dt dt--fixed w-100 pa3">
-                        <div className="">
-                            <p className="tc fl mw-50 f6 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-green"
-                                onClick={() => { getWord("Easy") }} >Easy</p>
-                        </div>
-                        <div className="">
-                            <p className="tc fl mw-50 f6 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-green"
-                                onClick={() => { getWord("Medium") }}>Medium</p>
-                        </div>
-                        <div className="">
-                            <p className="tc fl mw-50 f6 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-green"
-                                onClick={() => { getWord("Hard") }}>Hard</p>
-                        </div>
-                    </div>
-                    <legend className=" debug-grid-16-solid f5 fw6 ph0 mh0 center mb2 font-family: monaco ">Points</legend>
-                    <div className="debug-grid-16-solid flex justify-content: center">
-                        <p className="f6 fw6 ph0 mh0 center ml2 mr2 font-family: monaco">Easy - 1pt</p>
-                        <p className="f6 fw6 ph0 mh0 center ml2 font-family: monaco">Medium - 2pt</p>
-                        <p className="f6 fw6 ph0 mh0 center ml2 font-family: monaco">Hard - 3pt</p>
-                    </div>
-                    {showDiv === true ?
+        <div className='bg-washed-green vh-100'>
+
+            <article className="br3 ba b--black-10 mb4 w-100 w-50-m w-25-l mw6 shadow-5 center">
+                <main className="pa4 black-80 bg-washed-green dark-green">
+                    <div className="measure">
+                        <legend className="f2 fw6 ph0 mh0 center">Choose Level</legend>
                         <div className="flex flex-column items-center dt dt--fixed w-100 pa3">
-                            <HiddenWordDiv word={word} wordDefinition={wordDefinition} moveToGameRoom={moveToGameRoom} />
-                            {/* <HiddenDiv word={word} wordDefinition={wordDefinition}  /> */}
+                            <div className="">
+                                <p className="tc fl mw-50 f6 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-green"
+                                    onClick={() => { getWord("Easy") }} >Easy</p>
+                            </div>
+                            <div className="">
+                                <p className="tc fl mw-50 f6 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-green"
+                                    onClick={() => { getWord("Medium") }}>Medium</p>
+                            </div>
+                            <div className="">
+                                <p className="tc fl mw-50 f6 grow no-underline br-pill ph3 pv2 mb2 dib white bg-dark-green"
+                                    onClick={() => { getWord("Hard") }}>Hard</p>
+                            </div>
                         </div>
-                        : null}
-                </div>
-            </main>
-        </article>
+                        <legend className=" f5 fw6 ph0 mh0 center mb2 font-family: monaco ">Points</legend>
+                        <div className="flex justify-content: center">
+                            <p className="f6 fw6 ph0 mh0 center ml2 mr2 font-family: monaco">Easy - 1pt</p>
+                            <p className="f6 fw6 ph0 mh0 center ml2 font-family: monaco">Medium - 2pt</p>
+                            <p className="f6 fw6 ph0 mh0 center ml2 font-family: monaco">Hard - 3pt</p>
+                        </div>
+                        {showDiv === true ?
+                            <div className="flex flex-column items-center dt dt--fixed w-100 pa3">
+                                <HiddenWordDiv word={word} wordDefinition={wordDefinition} moveToGameRoom={moveToGameRoom} />
+                                {/* <HiddenDiv word={word} wordDefinition={wordDefinition}  /> */}
+                            </div>
+                            : null}
+                    </div>
+                </main>
+            </article>
+        </div>
+
     );
 }
 export default Pregame
