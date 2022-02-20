@@ -32,8 +32,5 @@ On click, the game will present you the highest score that you have achieved.
 
 ### `Here are some pictures..`
 ![image](https://user-images.githubusercontent.com/45013022/154839364-807c14ef-e5d5-40a9-a94c-34e3b4cd39a5.png) ![image](https://user-images.githubusercontent.com/45013022/154839448-9cea9f19-89a0-4544-9226-56bcd08ebf28.png) \
-![image](https://user-images.githubusercontent.com/45013022/154839765-a656c57a-bf26-4967-b8d7-076fb5cd632a.png)
-
-
-![image](https://user-images.githubusercontent.com/45013022/154839464-c767e93e-3b19-4cc9-aa02-4582a4e916e0.png)
+![image](https://user-images.githubusercontent.com/45013022/154839765-a656c57a-bf26-4967-b8d7-076fb5cd632a.png) ![image](https://user-images.githubusercontent.com/45013022/154839464-c767e93e-3b19-4cc9-aa02-4582a4e916e0.png)
 
